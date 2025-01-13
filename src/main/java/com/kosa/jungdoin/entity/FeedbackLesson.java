@@ -27,6 +27,8 @@ public class FeedbackLesson extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "member_id", nullable = false)
 	private Trainer trainer;
+	@Column(name = "title", nullable = false)
+	private String title;
 	@Column(name = "content", length = 2000, nullable = false)
 	private String content;
 	@Column(name = "price", nullable = false)
