@@ -26,15 +26,23 @@ public class Contract extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "contract_id")
 	private Long contractId;
+
 	@ManyToOne
 	@JoinColumn(name = "contract_category_code", nullable = false)
-	private ContractCategory contractCategory;
-	@Column(name = "lesson_id", nullable = false)
-	private Long lessonId;
+	private LessonCategory lessonCategory;
+
+	@Column(name = "apply_lesson_id", nullable = false)
+	private Long applyLessonId;
+
 	@Column(name = "start_date", nullable = false)
 	private LocalDate startDate;
+
 	@Column(name = "end_date", nullable = false)
 	private LocalDate endDate;
+
 	@Column(name = "count", nullable = false)
 	private Integer count;
+
+	@Column(name = "status", length = 20, nullable = false)
+	private String status; // 예: "APPROVED", "PENDING", "REJECTED"
 }

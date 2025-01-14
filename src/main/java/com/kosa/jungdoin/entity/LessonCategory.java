@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "contract_categories")
-public class ContractCategory {
+@Table(name = "lesson_categories")
+public class LessonCategory {
 	@Id
-	@Column(name = "contract_category_code", length = 10, nullable = false)
-	private String contractCategoryCode;
-	@Column(name = "category_name", length = 20, nullable = false)
-	private String categoryName;
+	@Column(name = "lesson_category_code", length = 10, nullable = false)
+	private String lessonCategoryCode;
+	@Column(name = "lesson_name", length = 20, nullable = false)
+	private String lessonName;
 }
