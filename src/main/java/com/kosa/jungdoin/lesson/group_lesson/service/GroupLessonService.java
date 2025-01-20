@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,6 +28,7 @@ public class GroupLessonService
         return GroupLessonDTO.builder()
                 .lessonId(lesson.getGroupLessonId())
                 .trainerId(lesson.getTrainer().getMemberId())
+                .trainerName(lesson.getTrainer().getBaseMember().getUsername())
                 .maxCnt(lesson.getMaxCnt())
                 .startDate(lesson.getStartDate())
                 .startEnd(lesson.getStartEnd())
@@ -37,6 +39,7 @@ public class GroupLessonService
                 .location(lesson.getLocation())
                 .lat(lesson.getLat())
                 .lng(lesson.getLng())
+                .category(lesson.getTrainer().getExerciseCategory().getCategoryName())  // 카테고리 이름 직접 사용
                 .build();
     }
 
@@ -93,6 +96,20 @@ public class GroupLessonService
             builder.lng(dto.getLng());
     }
 
+    // 마감하기 전용 메서드 추가
+    public GroupLessonDTO closeLesson(Long lessonId) {
+        GroupLesson lesson = repository.findById(lessonId)
+                .orElseThrow(() -> new EntityNotFoundException("Lesson not found"));
+
+        GroupLessonDTO updateDto = GroupLessonDTO.builder()
+                .lessonId(lessonId)
+                .trainerId(lesson.getTrainer().getMemberId())
+                .done(true)
+                .build();
+
+        return patchLesson(updateDto);
+    }
+
     @Override
     protected GroupLesson getExistEntity(GroupLessonDTO dto) {
         return repository.findById(dto.getLessonId()).orElseThrow(
@@ -104,6 +121,13 @@ public class GroupLessonService
     protected List<GroupLesson> findLessonsByTrainerId(Long trainerId) {
         GroupLessonRepository groupLessonRepository = (GroupLessonRepository) repository;
         return groupLessonRepository.findGroupLessonsByTrainerMemberId(trainerId);
+    }
+
+    public List<GroupLessonDTO> findByTrainerId(Long trainerId) {
+        List<GroupLesson> lessons = findLessonsByTrainerId(trainerId);  // 기존 메서드 활용
+        return lessons.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -142,4 +166,5 @@ public class GroupLessonService
                 .lng(dto.getLng())
                 .build();
     }
+
 }

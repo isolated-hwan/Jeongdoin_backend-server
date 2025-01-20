@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,9 +28,11 @@ public class OnlineLessonService
         return OnlineLessonDTO.builder()
                 .lessonId(lesson.getOnlineLessonId())
                 .trainerId(lesson.getTrainer().getMemberId())
+                .trainerName(lesson.getTrainer().getBaseMember().getUsername())
                 .title(lesson.getTitle())
                 .content(lesson.getContent())
                 .price(lesson.getPrice())
+                .category(lesson.getTrainer().getExerciseCategory().getCategoryName())
                 .build();
     }
 
@@ -76,6 +79,13 @@ public class OnlineLessonService
     protected List<OnlineLesson> findLessonsByTrainerId(Long trainerId) {
         OnlineLessonRepository onlineLessonRepository = (OnlineLessonRepository) repository;
         return onlineLessonRepository.findOnlineLessonsByTrainerMemberId(trainerId);
+    }
+
+    public List<OnlineLessonDTO> findByTrainerId(Long trainerId) {
+        List<OnlineLesson> lessons = findLessonsByTrainerId(trainerId);  // 기존 메서드 활용
+        return lessons.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

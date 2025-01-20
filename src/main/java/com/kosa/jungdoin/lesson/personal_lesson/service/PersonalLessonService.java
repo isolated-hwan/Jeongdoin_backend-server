@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,11 +29,14 @@ public class PersonalLessonService
         return PersonalLessonDTO.builder()
                 .lessonId(lesson.getPersonalLessonId())
                 .trainerId(lesson.getTrainer().getMemberId())
+                .trainerName(lesson.getTrainer().getBaseMember().getUsername())
                 .title(lesson.getTitle())
                 .content(lesson.getContent())
                 .price(lesson.getPrice())
+                .location(lesson.getLocation())
                 .lat(lesson.getLat())
                 .lng(lesson.getLng())
+                .category(lesson.getTrainer().getExerciseCategory().getCategoryName())  // 카테고리 이름 직접 사용
                 .build();
     }
 
@@ -52,6 +57,7 @@ public class PersonalLessonService
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .price(entity.getPrice())
+                .location(entity.getLocation())
                 .lat(entity.getLat())
                 .lng(entity.getLng());
     }
@@ -67,6 +73,8 @@ public class PersonalLessonService
             builder.content(dto.getContent());
         if (dto.getPrice() != null)
             builder.price(dto.getPrice());
+        if (dto.getLocation() != null)
+            builder.location(dto.getLocation());
         if (dto.getLat() != null)
             builder.lat(dto.getLat());
         if (dto.getLng() != null)
@@ -86,6 +94,13 @@ public class PersonalLessonService
         return personalLessonRepository.findPersonalLessonsByTrainerMemberId(trainerId);
     }
 
+    public List<PersonalLessonDTO> findByTrainerId(Long trainerId) {
+        List<PersonalLesson> lessons = findLessonsByTrainerId(trainerId);  // 기존 메서드 활용
+        return lessons.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     @Override
     protected PersonalLesson createEntityFromDTO(PersonalLessonDTO dto) {
         Trainer trainer = getTrainer(dto.getTrainerId());
@@ -94,6 +109,7 @@ public class PersonalLessonService
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .price(dto.getPrice())
+                .location(dto.getLocation())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
                 .build();
@@ -108,6 +124,7 @@ public class PersonalLessonService
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .price(dto.getPrice())
+                .location(dto.getLocation())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
                 .build();

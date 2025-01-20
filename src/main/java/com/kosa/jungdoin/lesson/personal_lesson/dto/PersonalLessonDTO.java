@@ -10,10 +10,12 @@ import java.math.BigDecimal;
 public class PersonalLessonDTO {
     private Long lessonId;
     private Long trainerId;
+    private String trainerName;
     private String title;
     private Integer price;
     private String content;
     private String location;
     private BigDecimal lat;
     private BigDecimal lng;
+    private String category;
 }

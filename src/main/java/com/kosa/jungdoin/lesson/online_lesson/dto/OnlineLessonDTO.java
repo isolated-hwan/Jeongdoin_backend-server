@@ -8,7 +8,9 @@ import lombok.Data;
 public class OnlineLessonDTO {
     private Long lessonId;
     private Long trainerId;
+    private String trainerName;
     private String title;
     private String content;
     private Integer price;
+    private String category;
 }
