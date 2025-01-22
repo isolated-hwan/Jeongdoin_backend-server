@@ -2,6 +2,8 @@ package com.kosa.jungdoin.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,6 +16,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+
+import com.kosa.jungdoin.common.Status;
 
 @Entity
 @Getter
@@ -38,6 +42,7 @@ public class FeedbackRequest extends BaseEntity {
 	private String content;
 	@Column(name = "expire_date", nullable = false)
 	private LocalDate expireDate;
-	@Column(name = "state", length = 20, nullable = false)
-	private String state;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", length = 20, nullable = false)
+	private Status status;
 }

@@ -1,7 +1,12 @@
 package com.kosa.jungdoin.entity;
 
+import com.kosa.jungdoin.common.Status;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +29,7 @@ public class ApplyLesson extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "apply_lesson_id")
-	private Long id;
+	private Long applyLessonId;
 
 	@ManyToOne
 	@JoinColumn(name = "lesson_category_code")
@@ -33,11 +38,13 @@ public class ApplyLesson extends BaseEntity {
 	@Column(name = "lesson_id")
 	private Long lessonId;
 
-	@Column(name = "member_id")
-	private Long memberId;
+	@ManyToOne
+	@JoinColumn(name = "member_id")
+	private Member member;
 
-	@Column(name = "state", length = 10, nullable = false)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", length = 10, nullable = false)
+	private Status status;
 
 	@Column(name = "member_content", length = 2000, nullable = false)
 	private String memberContent;

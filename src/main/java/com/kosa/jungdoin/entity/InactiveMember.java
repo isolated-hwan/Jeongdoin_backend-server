@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,13 +26,17 @@ import java.time.LocalDate;
 public class InactiveMember extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "inactive_member_seq")
-	private Long inactiveMemberSeq;
-	@ManyToOne
-	@JoinColumn(name = "member_id", nullable = false)
+	@Column(name = "member_id")
+	private Long memberId;
+
+	@OneToOne
+	@MapsId
+	@JoinColumn(name = "member_id")
 	private Member member;
+
 	@Column(name = "end_date", nullable = false)
 	private LocalDate endDate;
+
 	@Column(name = "reason", nullable = false)
 	private String reason;
 }

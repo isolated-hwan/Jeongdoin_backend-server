@@ -2,8 +2,13 @@ package com.kosa.jungdoin.entity;
 
 import java.time.LocalDate;
 
+import com.kosa.jungdoin.common.Process;
+import com.kosa.jungdoin.common.Status;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,11 +33,16 @@ public class Contract extends BaseEntity {
 	private Long contractId;
 
 	@ManyToOne
-	@JoinColumn(name = "contract_category_code", nullable = false)
+	@JoinColumn(name = "lesson_category_code", nullable = false)
 	private LessonCategory lessonCategory;
 
-	@Column(name = "apply_lesson_id", nullable = false)
-	private Long applyLessonId;
+	@ManyToOne
+	@JoinColumn(name = "member_id", nullable = false)
+	private Trainer trainer;
+
+	@ManyToOne
+	@JoinColumn(name = "apply_lesson_id", nullable = false)
+	private ApplyLesson applyLesson;
 
 	@Column(name = "start_date", nullable = false)
 	private LocalDate startDate;
@@ -43,6 +53,7 @@ public class Contract extends BaseEntity {
 	@Column(name = "count", nullable = false)
 	private Integer count;
 
-	@Column(name = "status", length = 20, nullable = false)
-	private String status; // 예: "APPROVED", "PENDING", "REJECTED"
+	@Enumerated(EnumType.STRING)
+	@Column(name = "process", length = 20, nullable = false)
+	private Process process;
 }
