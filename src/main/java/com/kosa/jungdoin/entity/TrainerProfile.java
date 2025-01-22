@@ -40,4 +40,8 @@ public class TrainerProfile extends BaseEntity {
 	private LocalDate endDate;
 	@Column(name = "detail", nullable = false)
 	private String detail;
+
+	@ManyToOne
+	@JoinColumn(name = "trainer_application_id")
+	private TrainerApplication trainerApplication;
 }

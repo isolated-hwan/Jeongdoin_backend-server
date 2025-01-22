@@ -1,7 +1,11 @@
 package com.kosa.jungdoin.entity;
 
+import com.kosa.jungdoin.common.Status;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,11 +28,21 @@ public class FeedbackLesson extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "feedback_lesson_id")
 	private Long feedbackLessonId;
+
 	@ManyToOne
 	@JoinColumn(name = "member_id", nullable = false)
 	private Trainer trainer;
+
+	@Column(name = "title", nullable = false)
+	private String title;
+
 	@Column(name = "content", length = 2000, nullable = false)
 	private String content;
+
 	@Column(name = "price", nullable = false)
 	private Integer price;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", length = 10, nullable = false)
+	private Status status;
 }

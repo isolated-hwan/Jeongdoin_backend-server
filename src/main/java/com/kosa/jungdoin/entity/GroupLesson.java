@@ -2,6 +2,8 @@ package com.kosa.jungdoin.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +17,8 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import com.kosa.jungdoin.common.Status;
 
 @Entity
 @Getter
@@ -50,4 +54,7 @@ public class GroupLesson extends BaseEntity {
 	private BigDecimal lat;
 	@Column(name = "lng", precision = 17, scale = 14, nullable = false)
 	private BigDecimal lng;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", length = 10, nullable = false)
+	private Status status;
 }

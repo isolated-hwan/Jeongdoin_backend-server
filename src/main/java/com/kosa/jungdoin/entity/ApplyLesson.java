@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,31 +14,41 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "online_lessons")
-public class OnlineLesson extends BaseEntity {
+@Table(name = "apply_lessons")
+public class ApplyLesson extends BaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "online_lesson_id")
-	private Long onlineLessonId;
+	@Column(name = "apply_lesson_id")
+	private Long applyLessonId;
+
 	@ManyToOne
-	@JoinColumn(name = "member_id", nullable = false)
-	private Trainer trainer;
-	@Column(name = "title", length = 40, nullable = false)
-	private String title;
-	@Column(name = "content", length = 2000, nullable = false)
-	private String content;
-	@Column(name = "price", nullable = false)
-	private Integer price;
+	@JoinColumn(name = "lesson_category_code")
+	private LessonCategory lessonCategoryCode;
+
+	@Column(name = "lesson_id")
+	private Long lessonId;
+
+	@ManyToOne
+	@JoinColumn(name = "member_id")
+	private Member member;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", length = 10, nullable = false)
 	private Status status;
+
+	@Column(name = "member_content", length = 2000, nullable = false)
+	private String memberContent;
+
+	@Column(name = "trainer_content", length = 2000, nullable = false)
+	private String trainerContent;
 }

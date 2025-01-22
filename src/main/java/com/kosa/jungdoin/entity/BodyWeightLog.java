@@ -26,7 +26,7 @@ public class BodyWeightLog extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "body_weight_log_id")
-    private Long id;
+    private Long bodyWeightLogId;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)

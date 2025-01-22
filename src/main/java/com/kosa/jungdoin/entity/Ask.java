@@ -29,5 +29,5 @@ public class Ask extends BaseEntity {
 	@Column(name = "email", length = 20, nullable = false)
 	private String email;
 	@Column(name = "state", length = 10, nullable = false)
-	private String state;
+	private String status;
 }
