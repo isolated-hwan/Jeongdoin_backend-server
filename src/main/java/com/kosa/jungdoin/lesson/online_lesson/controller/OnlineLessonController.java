@@ -29,8 +29,8 @@ public class OnlineLessonController {
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody OnlineLessonDTO requestDTO) {
         try {
-            onlineLessonService.createLesson(requestDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            OnlineLessonDTO createdLesson = onlineLessonService.createLesson(requestDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdLesson);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -43,6 +43,16 @@ public class OnlineLessonController {
             return ResponseEntity.ok().body(resultDTO);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/trainer/{trainerId}")
+    public ResponseEntity<List<OnlineLessonDTO>> getOlineLessonsByTrainer(@PathVariable("trainerId") Long trainerId) {
+        try {
+            List<OnlineLessonDTO> lessons = onlineLessonService.findByTrainerId(trainerId);
+            return ResponseEntity.ok(lessons);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class GroupLessonDTO {
     private Long lessonId;
     private Long trainerId;
+    private String trainerName;
     private Integer maxCnt;
     private LocalDate startDate;
     private LocalDate startEnd;
@@ -21,4 +22,5 @@ public class GroupLessonDTO {
     private String location;
     private BigDecimal lat;
     private BigDecimal lng;
+    private String category;
 }

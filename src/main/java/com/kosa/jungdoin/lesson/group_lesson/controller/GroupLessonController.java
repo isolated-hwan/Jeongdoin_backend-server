@@ -29,8 +29,8 @@ public class GroupLessonController {
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody GroupLessonDTO requestDTO) {
         try {
-            groupLessonService.createLesson(requestDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).build();
+            GroupLessonDTO createdLesson = groupLessonService.createLesson(requestDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdLesson);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -43,6 +43,16 @@ public class GroupLessonController {
             return ResponseEntity.ok().body(resultDTO);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/trainer/{trainerId}")
+    public ResponseEntity<List<GroupLessonDTO>> getOlineLessonsByTrainer(@PathVariable("trainerId") Long trainerId) {
+        try {
+            List<GroupLessonDTO> lessons = groupLessonService.findByTrainerId(trainerId);
+            return ResponseEntity.ok(lessons);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
@@ -70,6 +80,17 @@ public class GroupLessonController {
         try {
             GroupLessonDTO patchedLesson = groupLessonService.patchLesson(requestDTO);
             return ResponseEntity.ok(patchedLesson);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    // 마감 전용 엔드포인트 추가
+    @PatchMapping("/{lessonId}/close")
+    public ResponseEntity<Object> closeLesson(@PathVariable("lessonId") Long lessonId) {
+        try {
+            GroupLessonDTO closedLesson = groupLessonService.closeLesson(lessonId);
+            return ResponseEntity.ok(closedLesson);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
