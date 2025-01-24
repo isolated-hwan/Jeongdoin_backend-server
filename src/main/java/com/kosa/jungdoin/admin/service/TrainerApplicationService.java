@@ -2,6 +2,7 @@ package com.kosa.jungdoin.admin.service;
 
 import com.kosa.jungdoin.admin.repository.TrainerApplicationHistoryRepository;
 import com.kosa.jungdoin.common.Role;
+import com.kosa.jungdoin.common.Status;
 import com.kosa.jungdoin.entity.BaseMember;
 import com.kosa.jungdoin.entity.ExerciseCategory;
 import com.kosa.jungdoin.entity.Member;
@@ -62,7 +63,7 @@ public class TrainerApplicationService {
                 TrainerApplication.builder()
                         .exerciseCategory(exerciseCategory)
                         .trainerProfiles(profiles)
-                        .status("PENDING")
+                        .status(Status.PENDING)
                         .member(member.get())
                         .build());
     }
@@ -100,7 +101,7 @@ public class TrainerApplicationService {
 
         TrainerApplication updatedApplication =
                 application.toBuilder()
-                        .status("APPROVED")
+                        .status(Status.APPROVED)
                         .build();
 
         trainerApplicationRepository.save(updatedApplication);
@@ -115,7 +116,7 @@ public class TrainerApplicationService {
 
         TrainerApplication updatedApplication =
                 application.toBuilder()
-                        .status("REJECTED")
+                        .status(Status.REJECTED)
                         .build();
 
         trainerApplicationRepository.save(updatedApplication);
@@ -129,7 +130,7 @@ public class TrainerApplicationService {
 
         TrainerApplication updatedApplication =
                 application.toBuilder()
-                        .status("CANCELLED")
+                        .status(Status.REJECTED)
                         .build();
 
         trainerApplicationRepository.save(updatedApplication);
@@ -155,7 +156,7 @@ public class TrainerApplicationService {
     public List<TrainerApplicationDTO> getAll() {
         return trainerApplicationRepository.findAll().stream()
                 .map(e -> TrainerApplicationDTO.builder()
-                        .applicationId(e.getId())
+                        .applicationId(e.getTrainerApplicationId())
                         .exerciseCategoryCode(e.getExerciseCategory().getExerciseCategoryCode())
                         .profileIdList(e.getTrainerProfiles().stream().map(TrainerProfile::getTrainerProfileId)
                                 .toList())

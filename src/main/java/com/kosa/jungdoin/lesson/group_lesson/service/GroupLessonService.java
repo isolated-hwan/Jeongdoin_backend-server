@@ -1,5 +1,6 @@
 package com.kosa.jungdoin.lesson.group_lesson.service;
 
+import com.kosa.jungdoin.common.Process;
 import com.kosa.jungdoin.entity.GroupLesson;
 import com.kosa.jungdoin.entity.Trainer;
 import com.kosa.jungdoin.lesson.common.BaseLessonService;
@@ -40,6 +41,7 @@ public class GroupLessonService
                 .lat(lesson.getLat())
                 .lng(lesson.getLng())
                 .category(lesson.getTrainer().getExerciseCategory().getCategoryName())  // 카테고리 이름 직접 사용
+                .process(lesson.getProcess())
                 .build();
     }
 
@@ -145,6 +147,7 @@ public class GroupLessonService
                 .location(dto.getLocation())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
+                .process(dto.getProcess())
                 .build();
     }
 
@@ -164,7 +167,15 @@ public class GroupLessonService
                 .location(dto.getLocation())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
+                .process(dto.getProcess())
                 .build();
     }
 
+    @Override
+    public List<GroupLessonDTO> getAllLessons() {
+        return repository.findAll().stream()
+                .filter(lesson -> Process.IN_PROGRESS.equals(lesson.getProcess()))
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 }

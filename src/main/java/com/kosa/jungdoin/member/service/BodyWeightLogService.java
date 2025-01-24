@@ -29,7 +29,7 @@ public class BodyWeightLogService {
 
         return bodyWeightLogRepository.findAllByMember(member)
                 .stream().map(e -> BodyWeightLogDTO.builder()
-                        .logId(e.getId())
+                        .bodyWeightLogId(e.getBodyWeightLogId())
                         .memberId(e.getMember().getMemberId())
                         .bodyWeight(e.getBodyWeight())
                         .dateMeasured(e.getDateMeasured())
@@ -63,13 +63,13 @@ public class BodyWeightLogService {
     //    @RequireAuthorization
     public Boolean removeLog(BodyWeightLogDTO requestDTO)
             throws IllegalArgumentException, OptimisticLockingFailureException {
-        if (bodyWeightLogRepository.findById(requestDTO.logId).isEmpty()) {
+        if (bodyWeightLogRepository.findById(requestDTO.bodyWeightLogId).isEmpty()) {
             return false;
         }
 
         bodyWeightLogRepository.delete(
                 BodyWeightLog.builder()
-                        .id(requestDTO.logId)
+                        .bodyWeightLogId(requestDTO.bodyWeightLogId)
                         .build()
         );
         return true;
@@ -81,7 +81,7 @@ public class BodyWeightLogService {
         Member member = Member.builder().memberId(requestDTO.getMemberId()).build();
         BodyWeightLog saved = bodyWeightLogRepository.save(
                 BodyWeightLog.builder()
-                        .id(requestDTO.logId)
+                        .bodyWeightLogId(requestDTO.bodyWeightLogId)
                         .member(member)
                         .bodyWeight(requestDTO.bodyWeight)
                         .dateMeasured(requestDTO.dateMeasured)

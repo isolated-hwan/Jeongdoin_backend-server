@@ -1,6 +1,6 @@
 package com.kosa.jungdoin.entity;
 
-import com.kosa.jungdoin.common.Status;
+import com.kosa.jungdoin.common.Process;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +43,6 @@ public class FeedbackLesson extends BaseEntity {
 	private Integer price;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status", length = 10, nullable = false)
-	private Status status;
+	@Column(name = "process", length = 20, nullable = false)
+	private Process process;
 }

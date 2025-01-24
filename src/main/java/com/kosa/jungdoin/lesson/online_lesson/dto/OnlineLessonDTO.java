@@ -1,5 +1,6 @@
 package com.kosa.jungdoin.lesson.online_lesson.dto;
 
+import com.kosa.jungdoin.common.Process;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,4 +14,5 @@ public class OnlineLessonDTO {
     private String content;
     private Integer price;
     private String category;
+    private Process process;
 }

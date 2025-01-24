@@ -1,5 +1,6 @@
 package com.kosa.jungdoin.entity;
 
+import com.kosa.jungdoin.common.Process;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,7 +18,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
-import com.kosa.jungdoin.common.Status;
 
 @Entity
 @Getter
@@ -46,6 +46,6 @@ public class PersonalLesson extends BaseEntity {
 	@Column(name = "lng", precision = 17, scale = 14, nullable = false)
 	private BigDecimal lng;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status", length = 10, nullable = false)
-	private Status status;
+	@Column(name = "process", length = 20, nullable = false)
+	private Process process;
 }

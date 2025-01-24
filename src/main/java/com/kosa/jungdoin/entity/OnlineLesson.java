@@ -1,5 +1,6 @@
 package com.kosa.jungdoin.entity;
 
+import com.kosa.jungdoin.common.Process;
 import com.kosa.jungdoin.common.Status;
 
 import jakarta.persistence.Column;
@@ -38,6 +39,6 @@ public class OnlineLesson extends BaseEntity {
 	@Column(name = "price", nullable = false)
 	private Integer price;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status", length = 10, nullable = false)
-	private Status status;
+	@Column(name = "process", length = 20, nullable = false)
+	private Process process;
 }

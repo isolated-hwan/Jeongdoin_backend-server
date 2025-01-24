@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BodyWeightLogDTO {
-    public Long logId;
+    public Long bodyWeightLogId;
     public Long memberId;
     public BigDecimal bodyWeight;
     public LocalDate dateMeasured;
