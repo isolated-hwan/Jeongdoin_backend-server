@@ -34,7 +34,7 @@ public class Contract extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "lesson_category_code", nullable = false)
-	private LessonCategory lessonCategory;
+	private LessonCategory lessonCategoryCode;
 
 	@ManyToOne
 	@JoinColumn(name = "member_id", nullable = false)

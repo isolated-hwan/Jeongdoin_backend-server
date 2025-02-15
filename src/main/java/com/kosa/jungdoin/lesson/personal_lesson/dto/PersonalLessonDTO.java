@@ -19,5 +19,5 @@ public class PersonalLessonDTO {
     private BigDecimal lat;
     private BigDecimal lng;
     private String category;
-    private Process process;
+    private String process;
 }

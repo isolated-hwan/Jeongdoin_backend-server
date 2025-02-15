@@ -38,7 +38,7 @@ public class PersonalLessonService
                 .lat(lesson.getLat())
                 .lng(lesson.getLng())
                 .category(lesson.getTrainer().getExerciseCategory().getCategoryName())  // 카테고리 이름 직접 사용
-                .process(lesson.getProcess())
+                .process(lesson.getProcess().getProcess())
                 .build();
     }
 
@@ -114,7 +114,7 @@ public class PersonalLessonService
                 .location(dto.getLocation())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
-                .process(dto.getProcess())
+                .process(Process.valueOf(dto.getProcess().toUpperCase()))
                 .build();
     }
 
@@ -130,7 +130,7 @@ public class PersonalLessonService
                 .location(dto.getLocation())
                 .lat(dto.getLat())
                 .lng(dto.getLng())
-                .process(dto.getProcess())
+                .process(Process.valueOf(dto.getProcess().toUpperCase()))
                 .build();
     }
 

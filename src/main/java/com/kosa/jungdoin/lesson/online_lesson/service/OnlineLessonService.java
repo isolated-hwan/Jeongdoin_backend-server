@@ -34,7 +34,7 @@ public class OnlineLessonService
                 .content(lesson.getContent())
                 .price(lesson.getPrice())
                 .category(lesson.getTrainer().getExerciseCategory().getCategoryName())
-                .process(lesson.getProcess())
+                .process(lesson.getProcess().getProcess())
                 .build();
     }
 
@@ -98,7 +98,7 @@ public class OnlineLessonService
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .price(dto.getPrice())
-                .process(dto.getProcess())
+                .process(Process.valueOf(dto.getProcess().toUpperCase()))
                 .build();
     }
 
@@ -111,7 +111,7 @@ public class OnlineLessonService
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .price(dto.getPrice())
-                .process(dto.getProcess())
+                .process(Process.valueOf(dto.getProcess().toUpperCase()))
                 .build();
     }
 

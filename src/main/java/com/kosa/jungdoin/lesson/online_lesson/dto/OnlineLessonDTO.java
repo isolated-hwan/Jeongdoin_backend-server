@@ -14,5 +14,5 @@ public class OnlineLessonDTO {
     private String content;
     private Integer price;
     private String category;
-    private Process process;
+    private String process;
 }

@@ -26,29 +26,28 @@ import lombok.NoArgsConstructor;
 @Table(name = "apply_lessons")
 public class ApplyLesson extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "apply_lesson_id")
-	private Long applyLessonId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "apply_lesson_id")
+    private Long applyLessonId;
 
-	@ManyToOne
-	@JoinColumn(name = "lesson_category_code")
-	private LessonCategory lessonCategoryCode;
+    @ManyToOne
+    @JoinColumn(name = "lesson_category_code")
+    private LessonCategory lessonCategoryCode;
 
-	@Column(name = "lesson_id")
-	private Long lessonId;
+    @Column(name = "lesson_id")
+    private Long lessonId;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-	@ManyToOne
-	@JoinColumn(name = "member_id")
-	private Member member;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 10, nullable = false)
+    private Status status;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "status", length = 10, nullable = false)
-	private Status status;
+    @Column(name = "member_content", length = 2000, nullable = false)
+    private String memberContent;
 
-	@Column(name = "member_content", length = 2000, nullable = false)
-	private String memberContent;
-
-	@Column(name = "trainer_content", length = 2000, nullable = false)
-	private String trainerContent;
+    @Column(name = "trainer_content", length = 2000, nullable = false)
+    private String trainerContent;
 }

@@ -1,6 +1,5 @@
 package com.kosa.jungdoin.lesson.group_lesson.dto;
 
-import com.kosa.jungdoin.common.Process;
 import lombok.Builder;
 import lombok.Data;
 
@@ -24,5 +23,5 @@ public class GroupLessonDTO {
     private BigDecimal lat;
     private BigDecimal lng;
     private String category;
-    private Process process;
+    private String process;
 }
